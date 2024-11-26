@@ -1,13 +1,12 @@
 package com.conexemi.emi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,5 +19,8 @@ public class City {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String cityName;
+
+  @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY,mappedBy = "city")
+  private List<User> users;
 
 }
