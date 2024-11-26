@@ -1,28 +1,43 @@
 package com.conexemi.emi.controller;
 
 import com.conexemi.emi.model.Role;
+import com.conexemi.emi.model.RoleType;
 import com.conexemi.emi.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/roles")
 public class RoleController {
 
-  @Autowired
-  RoleService roleService;
+    @Autowired
+    private RoleService roleService;
 
-  @GetMapping
-  public ResponseEntity<List<Role>> getAllRoles() {
-    List<Role> roles = roleService.findAllRoles();
-    System.out.println(roles);
-    return new ResponseEntity<>(roles, HttpStatus.OK);
-  }
+    @GetMapping("/id/{idRole}")
+    public ResponseEntity<Role> getRoleById(@PathVariable Integer idRole) {
+        Optional<Role> role = roleService.getRoleById(idRole);
+        return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/name/{nameRole}")
+    public ResponseEntity<Role> getRoleByName(@PathVariable RoleType nameRole) {
+        Optional<Role> role = roleService.getRoleByName(nameRole);
+        return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Role>> getAllRoles() {
+        List<Role> roles = roleService.getAllRoles();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
+    }
+
 
 }
