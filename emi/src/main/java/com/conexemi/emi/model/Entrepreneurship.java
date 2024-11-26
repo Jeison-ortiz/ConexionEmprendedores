@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -19,12 +19,26 @@ public class Entrepreneurship {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEntrepreneurship;
+    private Integer idEntrepreneurship;
 
+    @Column(nullable = false, length = 150)
     private String entrepreneurshipName;
+
+    @Column(nullable = false, length = 500)
     private String entrepreneurshipDescription;
+
+    @Column(nullable = false, length = 150)
     private String image;
-    private LocalDate publicationDate;
+
+    @Column(columnDefinition = "DATETIME", nullable = false)
+    private LocalDateTime publicationDate;
+
+    @PrePersist
+    protected void onCreate() {
+        publicationDate = LocalDateTime.now();
+    }
+
+    @Column(nullable = false, length = 150)
     private String address;
 
     @ManyToOne(targetEntity = City.class)
@@ -39,14 +53,19 @@ public class Entrepreneurship {
     @JoinTable(name = "entrepreneurshipCategory",
             joinColumns = @JoinColumn(name = "idEntrepreneurship"),
             inverseJoinColumns = @JoinColumn(name = "idCategory"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"idEntrepreneurship","idCategory"})
+            uniqueConstraints = @UniqueConstraint(columnNames = {"idEntrepreneurship", "idCategory"})
     )
     private List<Category> categories;
 
-    @OneToMany(targetEntity = Comments.class,fetch = FetchType.LAZY,mappedBy = "idEntrepreneurship")
+    @OneToMany(targetEntity = Comments.class, fetch = FetchType.LAZY, mappedBy = "idEntrepreneurship")
     private List<Comments> comments;
 
-    @OneToMany(targetEntity = Reaction.class,fetch = FetchType.LAZY,mappedBy = "idEntrepreneurship")
+    @OneToMany(targetEntity = Reaction.class, fetch = FetchType.LAZY, mappedBy = "idEntrepreneurship")
     private List<Reaction> reactions;
+
+    // Constructor adicional para deserialización
+    public Entrepreneurship(Integer idEntrepreneurship) {
+        this.idEntrepreneurship = idEntrepreneurship;
+    }
 
 }
