@@ -1,11 +1,12 @@
 package com.conexemi.emi.model;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -26,6 +27,13 @@ public class User {
     @JoinColumn(name = "city")
     private City city;
 
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "userRole",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_role"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"id_user","id_role"})
+    )
 
+    private List<Role> role;
 
 }
