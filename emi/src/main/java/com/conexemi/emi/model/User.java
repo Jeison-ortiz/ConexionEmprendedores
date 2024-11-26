@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class User {
 
     @ManyToOne(targetEntity = City.class)
     @JoinColumn(name = "idCity")
+    @JsonManagedReference
     private City idCity;
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
