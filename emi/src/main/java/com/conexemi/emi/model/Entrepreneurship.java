@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,10 +44,12 @@ public class Entrepreneurship {
 
     @ManyToOne(targetEntity = City.class)
     @JoinColumn(name = "idCity")
+    @JsonBackReference
     private City idCity;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "idUser")
+    @JsonBackReference
     private User idUser;
 
     @ManyToMany(targetEntity = Category.class, fetch = FetchType.LAZY)
