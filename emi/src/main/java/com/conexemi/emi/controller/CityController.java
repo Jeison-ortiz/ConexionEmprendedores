@@ -1,15 +1,11 @@
 package com.conexemi.emi.controller;
 
 import com.conexemi.emi.model.City;
-import com.conexemi.emi.model.Role;
 import com.conexemi.emi.services.CityService;
-import com.conexemi.emi.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +21,12 @@ public class CityController {
     List<City> cities = cityService.findAllCities();
     System.out.println(cities);
     return new ResponseEntity<>(cities, HttpStatus.OK);
+  }
+
+  @PostMapping
+  public ResponseEntity<City> addCity(@RequestBody City city){
+    City saveCity = cityService.createCity(city);
+    return new ResponseEntity<>(saveCity, HttpStatus.CREATED);
   }
 
 }
