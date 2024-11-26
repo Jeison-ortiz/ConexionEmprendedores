@@ -15,16 +15,22 @@ import java.util.List;
 @Setter
 public class City {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idCity;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCity;
 
-  private String cityName;
+    @Column(nullable = false, unique = true)
+    private String cityName;
 
-  @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY,mappedBy = "idCity")
-  private List<User> users;
+    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    private List<User> users;
 
-  @OneToMany(targetEntity = Entrepreneurship.class,fetch = FetchType.LAZY,mappedBy = "idCity")
-  private List<Entrepreneurship> entrepreneurships;
+    @OneToMany(targetEntity = Entrepreneurship.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    private List<Entrepreneurship> entrepreneurships;
+
+    // Additional constructor for deserialization
+    public City(Integer idCity) {
+        this.idCity = idCity;
+    }
 
 }
