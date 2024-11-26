@@ -15,8 +15,9 @@ public class Reaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idReaction;
+    private Integer idReaction;
 
+    @Column(nullable = false)
     private boolean hasReacted;
 
     @ManyToOne(targetEntity = Entrepreneurship.class)
