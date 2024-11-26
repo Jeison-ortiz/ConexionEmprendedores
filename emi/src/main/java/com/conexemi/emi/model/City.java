@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class City {
     private String cityName;
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    @JsonBackReference
     private List<User> users;
 
     @OneToMany(targetEntity = Entrepreneurship.class, fetch = FetchType.LAZY, mappedBy = "idCity")
