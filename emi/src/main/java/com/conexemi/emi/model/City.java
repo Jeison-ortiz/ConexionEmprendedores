@@ -17,10 +17,14 @@ public class City {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private int idCity;
+
   private String cityName;
 
-  @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY,mappedBy = "city")
+  @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY,mappedBy = "idCity")
   private List<User> users;
+
+  @OneToMany(targetEntity = Entrepreneurship.class,fetch = FetchType.LAZY,mappedBy = "idCity")
+  private List<Entrepreneurship> entrepreneurships;
 
 }

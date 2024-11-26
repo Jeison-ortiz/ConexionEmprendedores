@@ -23,17 +23,26 @@ public class User {
     private String email;
     private String mobile;
     private String userPassword;
+
     @ManyToOne(targetEntity = City.class)
-    @JoinColumn(name = "city")
-    private City city;
+    @JoinColumn(name = "idCity")
+    private City idCity;
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
     @JoinTable(name = "userRole",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"id_user","id_role"})
+            joinColumns = @JoinColumn(name = "idUser"),
+            inverseJoinColumns = @JoinColumn(name = "idRole"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"idUser","idRole"})
     )
-
     private List<Role> role;
+
+    @OneToMany(targetEntity = Entrepreneurship.class,fetch = FetchType.LAZY,mappedBy = "idUser")
+    private List<Entrepreneurship> entrepreneurships;
+
+    @OneToMany(targetEntity = Comments.class,fetch = FetchType.LAZY,mappedBy = "idUser")
+    private List<Comments> comments;
+
+    @OneToMany(targetEntity = Reaction.class,fetch = FetchType.LAZY,mappedBy = "idUser")
+    private List<Reaction> reactions;
 
 }
