@@ -2,11 +2,11 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/conexemi
     username: root
-    password: ADMIN
+    password: 123456789
 
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate.format_sql: true
