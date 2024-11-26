@@ -17,4 +17,8 @@ public class CityService {
     return cityRepository.findAll();
   }
 
+  public City createCity(City city){
+    return cityRepository.save(city);
+  }
+
 }
