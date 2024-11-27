@@ -2,9 +2,11 @@ package com.conexemi.emi.controller;
 
 import com.conexemi.emi.DTO.ReactionDTO;
 import com.conexemi.emi.services.ReactionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/reaction")
+@Validated
 public class ReactionController {
 
     @Autowired
@@ -19,7 +22,7 @@ public class ReactionController {
 
 
     @PostMapping
-    public ResponseEntity<ReactionDTO> createReaction(@RequestBody ReactionDTO reactionDTO) {
+    public ResponseEntity<ReactionDTO> createReaction(@Valid @RequestBody ReactionDTO reactionDTO) {
         ReactionDTO saveReactionDTO = reactionService.createReaction(reactionDTO);
         return new ResponseEntity<>(saveReactionDTO, HttpStatus.CREATED);
     }

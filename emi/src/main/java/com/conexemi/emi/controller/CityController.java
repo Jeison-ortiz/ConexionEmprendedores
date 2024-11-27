@@ -2,9 +2,11 @@ package com.conexemi.emi.controller;
 
 import com.conexemi.emi.DTO.CityDTO;
 import com.conexemi.emi.services.CityService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/city")
+@Validated
 public class CityController {
 
     @Autowired
@@ -19,7 +22,7 @@ public class CityController {
 
 
     @PostMapping
-    public ResponseEntity<CityDTO> createCity(@RequestBody CityDTO cityDTO) {
+    public ResponseEntity<CityDTO> createCity(@Valid @RequestBody CityDTO cityDTO) {
         CityDTO saveCityDTO = cityService.createCity(cityDTO);
         return new ResponseEntity<>(saveCityDTO, HttpStatus.CREATED);
     }
