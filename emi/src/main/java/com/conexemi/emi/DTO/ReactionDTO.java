@@ -1,5 +1,7 @@
 package com.conexemi.emi.DTO;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +14,14 @@ import lombok.Setter;
 public class ReactionDTO {
 
     private Integer idReaction;
+
+    @NotNull(message = "The reaction cannot be empty")
     private boolean hasReacted;
+
+    @NotNull(message = "Entrepreneurship ID cannot be null")
     private Integer idEntrepreneurship;
+
+    @NotNull(message = "User ID cannot be null")
     private Integer idUser;
 
 }
