@@ -1,6 +1,6 @@
 package com.conexemi.emi.controller;
 
-import com.conexemi.emi.model.Comments;
+import com.conexemi.emi.DTO.CommentsDTO;
 import com.conexemi.emi.services.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,29 +14,29 @@ import java.util.Optional;
 @RequestMapping("/comments")
 public class CommentsController {
 
-
     @Autowired
     private CommentsService commentsService;
 
+
     @PostMapping
-    public ResponseEntity<Comments> createComments(@RequestBody Comments comment) {
-        Comments saveComments = commentsService.createComments(comment);
-        return new ResponseEntity<>(saveComments, HttpStatus.CREATED);
+    public ResponseEntity<CommentsDTO> createComments(@RequestBody CommentsDTO commentDTO) {
+        CommentsDTO savedCommentDTO = commentsService.createComment(commentDTO);
+        return new ResponseEntity<>(savedCommentDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{idComment}")
-    public ResponseEntity<Comments> getCommentById(@PathVariable Integer idComment) {
-        Optional<Comments> comment = commentsService.getCommentById(idComment);
-        return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CommentsDTO> getCommentById(@PathVariable Integer idComment) {
+        Optional<CommentsDTO> commentDTO = commentsService.getCommentById(idComment);
+        return commentDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Comments>> getAllComments() {
-        List<Comments> comments = commentsService.getAllComments();
-        return new ResponseEntity<>(comments, HttpStatus.OK);
+    public ResponseEntity<List<CommentsDTO>> getAllComments() {
+        List<CommentsDTO> commentsDTO = commentsService.getAllComments();
+        return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping("/id/{idComments}")
+    @DeleteMapping("/id/{idComment}")
     public ResponseEntity<Void> deleteCommentById(@PathVariable Integer idComment) {
         commentsService.deleteCommentById(idComment);
         return ResponseEntity.noContent().build();

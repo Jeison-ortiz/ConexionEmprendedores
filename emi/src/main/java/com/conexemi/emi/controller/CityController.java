@@ -1,6 +1,6 @@
 package com.conexemi.emi.controller;
 
-import com.conexemi.emi.model.City;
+import com.conexemi.emi.DTO.CityDTO;
 import com.conexemi.emi.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,29 +17,29 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
+
     @PostMapping
-    public ResponseEntity<City> createCity(@RequestBody City city) {
-        City saveCity = cityService.createCity(city);
-        return new ResponseEntity<>(saveCity, HttpStatus.CREATED);
+    public ResponseEntity<CityDTO> createCity(@RequestBody CityDTO cityDTO) {
+        CityDTO saveCityDTO = cityService.createCity(cityDTO);
+        return new ResponseEntity<>(saveCityDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{idCity}")
-    public ResponseEntity<City> getCityById(@PathVariable Integer idCity) {
-        Optional<City> city = cityService.getCityById(idCity);
-        return city.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CityDTO> getCityById(@PathVariable Integer idCity) {
+        Optional<CityDTO> cityDTO = cityService.getCityById(idCity);
+        return cityDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/name/{nameCity}")
-    public ResponseEntity<City> getCityByName(@PathVariable String nameCity) {
-        Optional<City> city = cityService.getCityByName(nameCity);
-        return city.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<CityDTO> getCityByName(@PathVariable String nameCity) {
+        Optional<CityDTO> cityDTO = cityService.getCityByName(nameCity);
+        return cityDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<City>> getAllCities() {
-        List<City> cities = cityService.getAllCities();
-        System.out.println(cities);
-        return new ResponseEntity<>(cities, HttpStatus.OK);
+    public ResponseEntity<List<CityDTO>> getAllCities() {
+        List<CityDTO> citiesDTO = cityService.getAllCities();
+        return new ResponseEntity<>(citiesDTO, HttpStatus.OK);
     }
 
 

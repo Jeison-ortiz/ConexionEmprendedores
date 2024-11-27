@@ -1,6 +1,6 @@
 package com.conexemi.emi.controller;
 
-import com.conexemi.emi.model.Reaction;
+import com.conexemi.emi.DTO.ReactionDTO;
 import com.conexemi.emi.services.ReactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +19,21 @@ public class ReactionController {
 
 
     @PostMapping
-    public ResponseEntity<Reaction> createReaction(@RequestBody Reaction reaction) {
-        Reaction saveReaction = reactionService.createReaction(reaction);
-        return new ResponseEntity<>(saveReaction, HttpStatus.CREATED);
+    public ResponseEntity<ReactionDTO> createReaction(@RequestBody ReactionDTO reactionDTO) {
+        ReactionDTO saveReactionDTO = reactionService.createReaction(reactionDTO);
+        return new ResponseEntity<>(saveReactionDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{idReaction}")
-    public ResponseEntity<Reaction> getReactionById(@PathVariable Integer idReaction) {
-        Optional<Reaction> reaction = reactionService.getReactionById(idReaction);
-        return reaction.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<ReactionDTO> getReactionById(@PathVariable Integer idReaction) {
+        Optional<ReactionDTO> reactionDTO = reactionService.getReactionById(idReaction);
+        return reactionDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Reaction>> getAllReactions() {
-        List<Reaction> reaction = reactionService.getAllReactions();
-        return new ResponseEntity<>(reaction, HttpStatus.OK);
+    public ResponseEntity<List<ReactionDTO>> getAllReactions() {
+        List<ReactionDTO> reactionDTO = reactionService.getAllReactions();
+        return new ResponseEntity<>(reactionDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/id/{idReaction}")

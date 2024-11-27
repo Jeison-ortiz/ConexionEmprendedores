@@ -21,6 +21,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+
     @GetMapping("/id/{idRole}")
     public ResponseEntity<Role> getRoleById(@PathVariable Integer idRole) {
         Optional<Role> role = roleService.getRoleById(idRole);

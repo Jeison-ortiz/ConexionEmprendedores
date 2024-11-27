@@ -21,6 +21,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+
     @GetMapping("id/{idCategory}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Integer idCategory) {
         Optional<Category> category = categoryService.getCategoryById(idCategory);

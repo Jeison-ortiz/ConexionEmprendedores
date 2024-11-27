@@ -1,6 +1,6 @@
 package com.conexemi.emi.controller;
 
-import com.conexemi.emi.model.Entrepreneurship;
+import com.conexemi.emi.DTO.EntrepreneurshipDTO;
 import com.conexemi.emi.services.EntrepreneurshipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +19,21 @@ public class EntrepreneurshipController {
 
 
     @PostMapping
-    public ResponseEntity<Entrepreneurship> createEntrepreneurship(@RequestBody Entrepreneurship entrepreneurship) {
-        Entrepreneurship saveEntrepreneurship = entrepreneurshipService.createEntrepreneurship(entrepreneurship);
-        return new ResponseEntity<>(saveEntrepreneurship, HttpStatus.CREATED);
+    public ResponseEntity<EntrepreneurshipDTO> createEntrepreneurship(@RequestBody EntrepreneurshipDTO entrepreneurshipDTO) {
+        EntrepreneurshipDTO savedEntrepreneurshipDTO = entrepreneurshipService.createEntrepreneurship(entrepreneurshipDTO);
+        return new ResponseEntity<>(savedEntrepreneurshipDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{idEntrepreneurship}")
-    public ResponseEntity<Entrepreneurship> getEntrepreneurshipById(@PathVariable Integer idEntrepreneurship) {
-        Optional<Entrepreneurship> entrepreneurship = entrepreneurshipService.getEntrepreneurshipById(idEntrepreneurship);
-        return entrepreneurship.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<EntrepreneurshipDTO> getEntrepreneurshipById(@PathVariable Integer idEntrepreneurship) {
+        Optional<EntrepreneurshipDTO> entrepreneurshipDTO = entrepreneurshipService.getEntrepreneurshipById(idEntrepreneurship);
+        return entrepreneurshipDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Entrepreneurship>> getAllEntrepreneurships() {
-        List<Entrepreneurship> entrepreneurship = entrepreneurshipService.getAllEntrepreneurships();
-        return new ResponseEntity<>(entrepreneurship, HttpStatus.OK);
+    public ResponseEntity<List<EntrepreneurshipDTO>> getAllEntrepreneurships() {
+        List<EntrepreneurshipDTO> entrepreneurshipsDTO = entrepreneurshipService.getAllEntrepreneurships();
+        return new ResponseEntity<>(entrepreneurshipsDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/id/{idEntrepreneurship}")

@@ -1,6 +1,6 @@
 package com.conexemi.emi.controller;
 
-import com.conexemi.emi.model.User;
+import com.conexemi.emi.DTO.UserDTO;
 import com.conexemi.emi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +19,21 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User saveUser = userService.createUser(user);
-        return new ResponseEntity<>(saveUser, HttpStatus.CREATED);
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        UserDTO saveUserDTO = userService.createUser(userDTO);
+        return new ResponseEntity<>(saveUserDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/id/{idUser}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer idUser) {
-        Optional<User> user = userService.getUserById(idUser);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer idUser) {
+        Optional<UserDTO> userDTO = userService.getUserById(idUser);
+        return userDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> usersDTO = userService.getAllUsers();
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/id/{idUser}")
