@@ -1,6 +1,6 @@
 package com.conexemi.emi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,15 +24,11 @@ public class City {
     private String cityName;
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "idCity")
-    @JsonBackReference
+    @JsonManagedReference
     private List<User> users;
 
     @OneToMany(targetEntity = Entrepreneurship.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    @JsonManagedReference
     private List<Entrepreneurship> entrepreneurships;
-
-    // Additional constructor for deserialization
-    public City(Integer idCity) {
-        this.idCity = idCity;
-    }
 
 }

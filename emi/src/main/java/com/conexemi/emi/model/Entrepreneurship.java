@@ -1,6 +1,7 @@
 package com.conexemi.emi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -61,14 +62,11 @@ public class Entrepreneurship {
     private List<Category> categories;
 
     @OneToMany(targetEntity = Comments.class, fetch = FetchType.LAZY, mappedBy = "idEntrepreneurship")
+    @JsonManagedReference
     private List<Comments> comments;
 
     @OneToMany(targetEntity = Reaction.class, fetch = FetchType.LAZY, mappedBy = "idEntrepreneurship")
+    @JsonManagedReference
     private List<Reaction> reactions;
-
-    // Constructor adicional para deserialización
-    public Entrepreneurship(Integer idEntrepreneurship) {
-        this.idEntrepreneurship = idEntrepreneurship;
-    }
 
 }

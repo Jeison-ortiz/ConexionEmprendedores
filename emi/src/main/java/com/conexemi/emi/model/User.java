@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class User {
 
     @ManyToOne(targetEntity = City.class)
     @JoinColumn(name = "idCity")
-    @JsonManagedReference
+    @JsonBackReference
     private City idCity;
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.LAZY)
@@ -49,17 +50,15 @@ public class User {
     private List<Role> roles;
 
     @OneToMany(targetEntity = Entrepreneurship.class, fetch = FetchType.LAZY, mappedBy = "idUser")
+    @JsonManagedReference
     private List<Entrepreneurship> entrepreneurships;
 
     @OneToMany(targetEntity = Comments.class, fetch = FetchType.LAZY, mappedBy = "idUser")
+    @JsonManagedReference
     private List<Comments> comments;
 
     @OneToMany(targetEntity = Reaction.class, fetch = FetchType.LAZY, mappedBy = "idUser")
+    @JsonManagedReference
     private List<Reaction> reactions;
 
-
-    // Constructor adicional para deserialización
-    public User(Integer idUser) {
-        this.idUser = idUser;
-    }
 }
