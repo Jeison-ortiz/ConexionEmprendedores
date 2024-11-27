@@ -15,6 +15,7 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+
     public Optional<Category> getCategoryById(Integer idCategory) {
         return categoryRepository.findById(idCategory);
     }
@@ -26,5 +27,6 @@ public class CategoryService {
     public List<Category> getAllCategory() {
         return categoryRepository.findAll();
     }
+
 
 }

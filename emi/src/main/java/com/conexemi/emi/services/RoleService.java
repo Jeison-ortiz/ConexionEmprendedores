@@ -15,6 +15,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+
     public Optional<Role> getRoleById(Integer idRole) {
         return roleRepository.findById(idRole);
     }
@@ -26,5 +27,6 @@ public class RoleService {
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
+
 
 }
