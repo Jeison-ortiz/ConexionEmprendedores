@@ -1,6 +1,8 @@
 package com.conexemi.emi.Mapper;
 
 import com.conexemi.emi.DTO.EntrepreneurshipDTO;
+import com.conexemi.emi.Exceptions.InvalidDataException;
+import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.model.Category;
 import com.conexemi.emi.model.City;
 import com.conexemi.emi.model.Entrepreneurship;
@@ -39,16 +41,19 @@ public class EntrepreneurshipMapper {
 
         // Search City by ID
         City city = cityRepository.findById(entrepreneurshipDTO.getIdCity())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "City with ID " + entrepreneurshipDTO.getIdCity() + " not found"));
 
         // Search User by ID
         User user = userRepository.findById(entrepreneurshipDTO.getIdUser())
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "User with ID " + entrepreneurshipDTO.getIdUser() + " not found"));
 
         // Search Categories by their IDs
         List<Category> categories = categoryRepository.findAllById(entrepreneurshipDTO.getIdCategories());
+        if (categories.isEmpty()) {
+            throw new InvalidDataException("No valid categories found for the provided IDs");
+        }
 
         // Create the entity
         Entrepreneurship entrepreneurship = new Entrepreneurship();
@@ -56,7 +61,6 @@ public class EntrepreneurshipMapper {
         entrepreneurship.setEntrepreneurshipDescription(entrepreneurshipDTO.getEntrepreneurshipDescription());
         entrepreneurship.setImage(entrepreneurshipDTO.getImage());
         entrepreneurship.setAddress(entrepreneurshipDTO.getAddress());
-        // Assign the complete objects for city, user, and categories
         entrepreneurship.setIdCity(city);
         entrepreneurship.setIdUser(user);
         entrepreneurship.setCategories(categories);
