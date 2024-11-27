@@ -1,5 +1,6 @@
 package com.conexemi.emi.services;
 
+import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.model.Category;
 import com.conexemi.emi.model.CategoryType;
 import com.conexemi.emi.repositories.CategoryRepository;
@@ -17,11 +18,15 @@ public class CategoryService {
 
 
     public Optional<Category> getCategoryById(Integer idCategory) {
-        return categoryRepository.findById(idCategory);
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findById(idCategory)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with ID " + idCategory + " not found")));
+        return category;
     }
 
     public Optional<Category> getCategoryByName(CategoryType nameCategory) {
-        return categoryRepository.findByNameCategory(nameCategory);
+        Optional<Category> category = Optional.ofNullable(categoryRepository.findByNameCategory(nameCategory)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with NAME " + nameCategory + " not found")));
+        return category;
     }
 
     public List<Category> getAllCategory() {

@@ -1,6 +1,7 @@
 package com.conexemi.emi.services;
 
 import com.conexemi.emi.DTO.CityDTO;
+import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.Mapper.CityMapper;
 import com.conexemi.emi.model.City;
 import com.conexemi.emi.repositories.CityRepository;
@@ -25,20 +26,20 @@ public class CityService {
     }
 
     public Optional<CityDTO> getCityById(Integer idCity) {
-        Optional<City> city = cityRepository.findById(idCity);
+        Optional<City> city = Optional.ofNullable(cityRepository.findById(idCity)
+                .orElseThrow(() -> new ResourceNotFoundException("City with ID " + idCity + " not found")));
         return city.map(CityMapper::toDTO);
     }
 
     public Optional<CityDTO> getCityByName(String nameCity) {
-        Optional<City> city = cityRepository.findByCityName(nameCity);
+        Optional<City> city = Optional.ofNullable(cityRepository.findByCityName(nameCity)
+                .orElseThrow(() -> new ResourceNotFoundException("City with NAME " + nameCity + " not found")));
         return city.map(CityMapper::toDTO);
     }
 
     public List<CityDTO> getAllCities() {
         List<City> cities = cityRepository.findAll();
-        return cities.stream()
-                .map(CityMapper::toDTO)
-                .collect(Collectors.toList());
+        return cities.stream().map(CityMapper::toDTO).collect(Collectors.toList());
     }
 
 

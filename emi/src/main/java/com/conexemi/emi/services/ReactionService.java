@@ -1,6 +1,7 @@
 package com.conexemi.emi.services;
 
 import com.conexemi.emi.DTO.ReactionDTO;
+import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.Mapper.ReactionMapper;
 import com.conexemi.emi.model.Reaction;
 import com.conexemi.emi.repositories.EntrepreneurshipRepository;
@@ -33,7 +34,8 @@ public class ReactionService {
     }
 
     public Optional<ReactionDTO> getReactionById(Integer idReaction) {
-        Optional<Reaction> reaction = reactionRepository.findById(idReaction);
+        Optional<Reaction> reaction = Optional.ofNullable(reactionRepository.findById(idReaction)
+                .orElseThrow(() -> new ResourceNotFoundException("Reaction with ID " + idReaction + " not found")));
         return reaction.map(ReactionMapper::toDTO);
     }
 

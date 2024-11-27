@@ -1,6 +1,7 @@
 package com.conexemi.emi.services;
 
 import com.conexemi.emi.DTO.CommentsDTO;
+import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.Mapper.CommentsMapper;
 import com.conexemi.emi.model.Comments;
 import com.conexemi.emi.repositories.CommentsRepository;
@@ -28,15 +29,14 @@ public class CommentsService {
     }
 
     public Optional<CommentsDTO> getCommentById(Integer idComment) {
-        Optional<Comments> comment = commentsRepository.findById(idComment);
+        Optional<Comments> comment = Optional.ofNullable(commentsRepository.findById(idComment)
+                .orElseThrow(() -> new ResourceNotFoundException("Comments with ID " + idComment + " not found")));
         return comment.map(CommentsMapper::toDTO);
     }
 
     public List<CommentsDTO> getAllComments() {
         List<Comments> comments = commentsRepository.findAll();
-        return comments.stream()
-                .map(CommentsMapper::toDTO)
-                .collect(Collectors.toList());
+        return comments.stream().map(CommentsMapper::toDTO).collect(Collectors.toList());
     }
 
     public void deleteCommentById(Integer idComment) {
