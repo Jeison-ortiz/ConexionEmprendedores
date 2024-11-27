@@ -46,5 +46,28 @@ public class UserService {
         userRepository.deleteById(idUser);
     }
 
+    public UserDTO updateUser(Integer idUser, UserDTO userDTO) {
 
+        User existingUser = userRepository.findById(idUser)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + idUser));
+
+        Optional.ofNullable(userDTO.getFirstName()).ifPresent(existingUser::setFirstName);
+        Optional.ofNullable(userDTO.getLastName()).ifPresent(existingUser::setLastName);
+        Optional.ofNullable(userDTO.getEmail()).ifPresent(existingUser::setEmail);
+        Optional.ofNullable(userDTO.getMobile()).ifPresent(existingUser::setMobile);
+        Optional.ofNullable(userDTO.getUserPassword()).ifPresent(existingUser::setUserPassword);
+
+        Optional.ofNullable(userDTO.getIdCity()).ifPresent(idCity -> {
+            existingUser.setIdCity(cityRepository.findById(idCity)
+                    .orElseThrow(() -> new IllegalArgumentException("City not found with id: " + idCity)));
+        });
+
+        Optional.ofNullable(userDTO.getIdRoles()).ifPresent(idRoles -> {
+            existingUser.setRoles(roleRepository.findAllById(idRoles));
+        });
+
+        User updatedUser = userRepository.save(existingUser);
+
+        return UserMapper.toDTO(updatedUser);
+    }
 }
