@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,16 +16,19 @@ public class Reaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idReaction;
+    private Integer idReaction;
 
+    @Column(nullable = false)
     private boolean hasReacted;
 
     @ManyToOne(targetEntity = Entrepreneurship.class)
     @JoinColumn(name = "idEntrepreneurship")
+    @JsonBackReference
     private Entrepreneurship idEntrepreneurship;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "idUser")
+    @JsonBackReference
     private User idUser;
 
 }

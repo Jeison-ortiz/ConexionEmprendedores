@@ -1,5 +1,6 @@
 package com.conexemi.emi.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,16 +16,19 @@ import java.util.List;
 @Setter
 public class City {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int idCity;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCity;
 
-  private String cityName;
+    @Column(nullable = false, unique = true)
+    private String cityName;
 
-  @OneToMany(targetEntity = User.class,fetch = FetchType.LAZY,mappedBy = "idCity")
-  private List<User> users;
+    @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    @JsonManagedReference
+    private List<User> users;
 
-  @OneToMany(targetEntity = Entrepreneurship.class,fetch = FetchType.LAZY,mappedBy = "idCity")
-  private List<Entrepreneurship> entrepreneurships;
+    @OneToMany(targetEntity = Entrepreneurship.class, fetch = FetchType.LAZY, mappedBy = "idCity")
+    @JsonManagedReference
+    private List<Entrepreneurship> entrepreneurships;
 
 }
