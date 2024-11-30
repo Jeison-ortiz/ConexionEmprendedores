@@ -29,7 +29,7 @@ public class Entrepreneurship {
     @Column(nullable = false, length = 500)
     private String entrepreneurshipDescription;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 500)
     private String image;
 
     @Column(columnDefinition = "DATETIME", nullable = false)
