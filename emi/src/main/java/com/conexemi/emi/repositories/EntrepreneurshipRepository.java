@@ -16,7 +16,7 @@ public interface EntrepreneurshipRepository extends JpaRepository<Entrepreneursh
     @Query("SELECT e FROM Entrepreneurship e " +
             "JOIN e.categories c " +
             "WHERE c.nameCategory = :nameCategory")
-    List<Entrepreneurship> findEntrepreneurshipsByCategoryName(@Param("nameCategory") CategoryType nameCategory);
+    List<Entrepreneurship> getEntrepreneurshipsByCategory(@Param("nameCategory") CategoryType nameCategory);
 
 }
 

@@ -12,7 +12,8 @@ public class CityMapper {
         }
         return new CityDTO(
                 city.getIdCity(),
-                city.getCityName());
+                city.getNameCity()
+        );
     }
 
     // Convert from DTO to Entity
@@ -22,7 +23,7 @@ public class CityMapper {
         }
         City city = new City();
         city.setIdCity(cityDTO.getIdCity());
-        city.setCityName(cityDTO.getCityName());
+        city.setNameCity(cityDTO.getNameCity());
         return city;
     }
 

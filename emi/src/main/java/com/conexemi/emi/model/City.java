@@ -20,8 +20,9 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCity;
 
-    @Column(nullable = false, unique = true)
-    private String cityName;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 100, unique = true)
+    private CityType nameCity;
 
     @OneToMany(targetEntity = User.class, fetch = FetchType.LAZY, mappedBy = "idCity")
     @JsonManagedReference

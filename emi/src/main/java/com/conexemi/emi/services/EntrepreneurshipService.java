@@ -90,8 +90,8 @@ public class EntrepreneurshipService {
         entrepreneurshipRepository.deleteById(idEntrepreneurship);
     }
 
-    public List<EntrepreneurshipDTO> getEntrepreneurshipsByCategoryName(CategoryType nameCategory) {
-        List<Entrepreneurship> entrepreneurshipList = entrepreneurshipRepository.findEntrepreneurshipsByCategoryName(nameCategory);
+    public List<EntrepreneurshipDTO> getEntrepreneurshipsByCategory(CategoryType nameCategory) {
+        List<Entrepreneurship> entrepreneurshipList = entrepreneurshipRepository.getEntrepreneurshipsByCategory(nameCategory);
         System.out.println("services");
         return entrepreneurshipList.stream()
                 .map(entrepreneurship -> entrepreneurshipMapper.toDTO(entrepreneurship))

@@ -33,8 +33,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategory() {
-        List<Category> category = categoryService.getAllCategory();
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> category = categoryService.getAllCategories();
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 

@@ -57,7 +57,7 @@ public class EntrepreneurshipController {
     @GetMapping("/category/{nameCategory}")
     public ResponseEntity<List<EntrepreneurshipDTO>> getEntrepreneurshipsByCategory(@PathVariable CategoryType nameCategory) {
         System.out.println("controller");
-        List<EntrepreneurshipDTO> entrepreneurshipsDTO = entrepreneurshipService.getEntrepreneurshipsByCategoryName(nameCategory);
+        List<EntrepreneurshipDTO> entrepreneurshipsDTO = entrepreneurshipService.getEntrepreneurshipsByCategory(nameCategory);
         System.out.println("controller finish");
         return new ResponseEntity<>(entrepreneurshipsDTO, HttpStatus.OK);
 

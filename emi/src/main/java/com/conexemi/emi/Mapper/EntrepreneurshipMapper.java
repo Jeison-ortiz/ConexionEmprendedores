@@ -27,8 +27,11 @@ public class EntrepreneurshipMapper {
         dto.setImage(entrepreneurship.getImage());
         dto.setAddress(entrepreneurship.getAddress());
         dto.setIdCity(entrepreneurship.getIdCity().getIdCity());
+        dto.setNameCity(entrepreneurship.getIdCity().getNameCity());
         dto.setIdUser(entrepreneurship.getIdUser().getIdUser());
+        dto.setUser(entrepreneurship.getIdUser().getFirstName() + " " + entrepreneurship.getIdUser().getLastName());
         dto.setIdCategories(entrepreneurship.getCategories().stream().map(Category::getIdCategory).collect(Collectors.toList()));
+        dto.setNameCategories(entrepreneurship.getCategories().stream().map(Category::getNameCategory).collect(Collectors.toList()));
 
         return dto;
     }

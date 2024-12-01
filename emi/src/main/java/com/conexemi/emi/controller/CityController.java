@@ -1,6 +1,7 @@
 package com.conexemi.emi.controller;
 
 import com.conexemi.emi.DTO.CityDTO;
+import com.conexemi.emi.model.CityType;
 import com.conexemi.emi.services.CityService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class CityController {
     }
 
     @GetMapping("/name/{nameCity}")
-    public ResponseEntity<CityDTO> getCityByName(@PathVariable String nameCity) {
+    public ResponseEntity<CityDTO> getCityByName(@PathVariable CityType nameCity) {
         Optional<CityDTO> cityDTO = cityService.getCityByName(nameCity);
         return cityDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
