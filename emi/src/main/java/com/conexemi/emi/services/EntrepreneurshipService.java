@@ -92,12 +92,10 @@ public class EntrepreneurshipService {
 
     public List<EntrepreneurshipDTO> getEntrepreneurshipsByCategory(CategoryType nameCategory) {
         List<Entrepreneurship> entrepreneurshipList = entrepreneurshipRepository.getEntrepreneurshipsByCategory(nameCategory);
-        System.out.println("services");
         return entrepreneurshipList.stream()
                 .map(entrepreneurship -> entrepreneurshipMapper.toDTO(entrepreneurship))
                 .collect(Collectors.toList());
     }
-
 
 
 }

@@ -43,5 +43,12 @@ public class CommentsService {
         commentsRepository.deleteById(idComment);
     }
 
+    public List<CommentsDTO> getCommentsByEntrepreneurship(Integer idEntrepreneurship) {
+        List<Comments> comentsList = commentsRepository.getCommentsByEntrepreneurship(idEntrepreneurship);
+        return comentsList.stream()
+                .map(comments -> CommentsMapper.toDTO(comments))
+                .collect(Collectors.toList());
+    }
+
 
 }

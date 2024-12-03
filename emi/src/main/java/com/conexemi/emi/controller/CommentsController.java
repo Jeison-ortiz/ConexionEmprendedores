@@ -46,5 +46,11 @@ public class CommentsController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{idEntrepreneurship}")
+    public ResponseEntity<List<CommentsDTO>> getCommentsByEntrepreneurship(@PathVariable Integer idEntrepreneurship) {
+        List<CommentsDTO> commentsDTO = commentsService.getCommentsByEntrepreneurship(idEntrepreneurship);
+        return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
+    }
+
 
 }
