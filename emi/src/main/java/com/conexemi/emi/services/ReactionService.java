@@ -45,6 +45,9 @@ public class ReactionService {
     }
 
     public void deleteReactionById(Integer idReaction) {
+        if (!reactionRepository.existsById(idReaction)) {
+            throw new ResourceNotFoundException("Reaction with ID " + idReaction + " not found");
+        }
         reactionRepository.deleteById(idReaction);
     }
 

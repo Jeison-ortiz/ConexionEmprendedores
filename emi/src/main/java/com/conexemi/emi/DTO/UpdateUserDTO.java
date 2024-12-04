@@ -21,5 +21,4 @@ public class UpdateUserDTO {
     private Integer idCity;
     private List<Integer> idRoles;
 
-
 }

@@ -58,7 +58,6 @@ public class EntrepreneurshipController {
     public ResponseEntity<List<EntrepreneurshipDTO>> getEntrepreneurshipsByCategory(@PathVariable CategoryType nameCategory) {
         List<EntrepreneurshipDTO> entrepreneurshipsDTO = entrepreneurshipService.getEntrepreneurshipsByCategory(nameCategory);
         return new ResponseEntity<>(entrepreneurshipsDTO, HttpStatus.OK);
-
     }
 
 

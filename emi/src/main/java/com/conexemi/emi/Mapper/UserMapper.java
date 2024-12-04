@@ -22,6 +22,7 @@ public class UserMapper {
                 user.getMobile(),
                 null,
                 user.getIdCity() != null ? user.getIdCity().getIdCity() : null,
+                user.getIdCity().getNameCity(),
                 user.getRoles() != null
                         ? user.getRoles().stream().map(Role::getIdRole).collect(Collectors.toList())
                         : null

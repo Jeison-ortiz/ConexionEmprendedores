@@ -9,4 +9,5 @@ public interface ReactionRepository extends JpaRepository<Reaction, Integer> {
 
     @Query("SELECT COUNT(c) FROM Comments c WHERE c.idEntrepreneurship.idEntrepreneurship = :idEntrepreneurship")
     Integer countReactionsByEntrepreneurship(@Param("idEntrepreneurship") Integer idEntrepreneurship);
+
 }

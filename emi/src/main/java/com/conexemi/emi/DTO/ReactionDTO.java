@@ -28,4 +28,5 @@ public class ReactionDTO {
     private String user;
 
     private Integer totalReactions;
+
 }

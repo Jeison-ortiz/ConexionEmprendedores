@@ -87,6 +87,9 @@ public class EntrepreneurshipService {
 
 
     public void deleteEntrepreneurshipById(Integer idEntrepreneurship) {
+        if (!entrepreneurshipRepository.existsById(idEntrepreneurship)) {
+            throw new ResourceNotFoundException("Entrepreneurship with ID " + idEntrepreneurship + " not found");
+        }
         entrepreneurshipRepository.deleteById(idEntrepreneurship);
     }
 

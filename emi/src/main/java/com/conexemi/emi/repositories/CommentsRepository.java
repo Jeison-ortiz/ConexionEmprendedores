@@ -16,4 +16,5 @@ public interface CommentsRepository extends JpaRepository<Comments, Integer> {
 
     @Query("SELECT COUNT(c) FROM Comments c WHERE c.idEntrepreneurship.idEntrepreneurship = :idEntrepreneurship")
     Integer countCommentsByEntrepreneurship(@Param("idEntrepreneurship") Integer idEntrepreneurship);
+
 }
