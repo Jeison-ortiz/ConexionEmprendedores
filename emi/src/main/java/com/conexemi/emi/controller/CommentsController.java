@@ -31,6 +31,7 @@ public class CommentsController {
     @GetMapping("/id/{idComment}")
     public ResponseEntity<CommentsDTO> getCommentById(@PathVariable Integer idComment) {
         Optional<CommentsDTO> commentDTO = commentsService.getCommentById(idComment);
+        System.out.println(commentDTO);
         return commentDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 

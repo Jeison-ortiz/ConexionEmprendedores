@@ -20,7 +20,12 @@ public class ReactionDTO {
     @NotNull(message = "Entrepreneurship ID cannot be null")
     private Integer idEntrepreneurship;
 
+    private String entrepreneurshipName;
+
     @NotNull(message = "User ID cannot be null")
     private Integer idUser;
 
+    private String user;
+
+    private Integer totalReactions;
 }

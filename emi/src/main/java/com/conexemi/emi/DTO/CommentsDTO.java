@@ -33,6 +33,8 @@ public class CommentsDTO {
 
     private String user;
 
+    private Integer totalComments;
+
 
     public void setCommentDate(LocalDateTime commentDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;

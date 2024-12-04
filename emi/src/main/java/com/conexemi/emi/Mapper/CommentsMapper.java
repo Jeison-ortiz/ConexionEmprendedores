@@ -4,6 +4,7 @@ import com.conexemi.emi.DTO.CommentsDTO;
 import com.conexemi.emi.model.Comments;
 import com.conexemi.emi.model.Entrepreneurship;
 import com.conexemi.emi.model.User;
+import com.conexemi.emi.repositories.CommentsRepository;
 import com.conexemi.emi.repositories.EntrepreneurshipRepository;
 import com.conexemi.emi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,12 @@ public class CommentsMapper {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CommentsRepository commentsRepository;
+
 
     // Convert from Entity to DTO
-    public static CommentsDTO toDTO(Comments comment) {
+    public static CommentsDTO toDTO(Comments comment, CommentsRepository commentsRepository) {
         if (comment == null) {
             return null;
         }
@@ -32,19 +36,24 @@ public class CommentsMapper {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         String formattedDate = comment.getCommentDate() != null ? comment.getCommentDate().format(formatter) : null;
 
+        Integer idEntrepreneurship = comment.getIdEntrepreneurship() != null ? comment.getIdEntrepreneurship().getIdEntrepreneurship() : null;
+        Integer totalComments = idEntrepreneurship != null ? commentsRepository.countCommentsByEntrepreneurship(idEntrepreneurship): 0;
+
         return new CommentsDTO(
                 comment.getIdComment(),
                 comment.getCommentDescription(),
                 formattedDate,
-                comment.getIdEntrepreneurship() != null ? comment.getIdEntrepreneurship().getIdEntrepreneurship() : null,
+                idEntrepreneurship,
                 comment.getIdEntrepreneurship().getEntrepreneurshipName(),
                 comment.getIdUser() != null ? comment.getIdUser().getIdUser() : null,
-                comment.getIdUser().getFirstName() + " " + comment.getIdUser().getLastName()
+                comment.getIdUser().getFirstName() + " " + comment.getIdUser().getLastName(),
+                totalComments
         );
     }
 
+
     // Convert from DTO to Entity
-    public Comments toEntity(CommentsDTO commentDTO) {
+    public static Comments toEntity(CommentsDTO commentDTO, EntrepreneurshipRepository entrepreneurshipRepository, UserRepository userRepository) {
         if (commentDTO == null) {
             return null;
         }
