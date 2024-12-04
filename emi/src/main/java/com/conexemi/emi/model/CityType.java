@@ -1,0 +1,37 @@
+package com.conexemi.emi.model;
+
+public enum CityType {
+    Leticia,
+    Medellin,
+    Arauca,
+    Barranquilla,
+    Cartagena_de_Indias,
+    Tunja,
+    Manizales,
+    Florencia,
+    Yopal,
+    Popayan,
+    Valledupar,
+    Quibdo,
+    Monteria,
+    Bogota,
+    Inirida,
+    San_Jose_del_Guaviare,
+    Neiva,
+    Riohacha,
+    Santa_Marta,
+    Villavicencio,
+    San_Juan_de_Pasto,
+    San_Jose_de_Cucuta,
+    Mocoa,
+    Armenia,
+    Pereira,
+    San_Andres,
+    Bucaramanga,
+    Sincelejo,
+    Ibague,
+    Cali,
+    Mitu,
+    Puerto_Carreño
+
+}

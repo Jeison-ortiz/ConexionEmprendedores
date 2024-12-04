@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/comments")
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentsController {
 
     @Autowired
@@ -30,6 +31,7 @@ public class CommentsController {
     @GetMapping("/id/{idComment}")
     public ResponseEntity<CommentsDTO> getCommentById(@PathVariable Integer idComment) {
         Optional<CommentsDTO> commentDTO = commentsService.getCommentById(idComment);
+        System.out.println(commentDTO);
         return commentDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -43,6 +45,12 @@ public class CommentsController {
     public ResponseEntity<Void> deleteCommentById(@PathVariable Integer idComment) {
         commentsService.deleteCommentById(idComment);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{idEntrepreneurship}")
+    public ResponseEntity<List<CommentsDTO>> getCommentsByEntrepreneurship(@PathVariable Integer idEntrepreneurship) {
+        List<CommentsDTO> commentsDTO = commentsService.getCommentsByEntrepreneurship(idEntrepreneurship);
+        return new ResponseEntity<>(commentsDTO, HttpStatus.OK);
     }
 
 

@@ -1,6 +1,5 @@
 package com.conexemi.emi.DTO;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +20,13 @@ public class ReactionDTO {
     @NotNull(message = "Entrepreneurship ID cannot be null")
     private Integer idEntrepreneurship;
 
+    private String entrepreneurshipName;
+
     @NotNull(message = "User ID cannot be null")
     private Integer idUser;
+
+    private String user;
+
+    private Integer totalReactions;
 
 }

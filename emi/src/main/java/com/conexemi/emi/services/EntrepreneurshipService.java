@@ -4,6 +4,7 @@ import com.conexemi.emi.DTO.EntrepreneurshipDTO;
 import com.conexemi.emi.DTO.UpdateEntrepreneurshipDTO;
 import com.conexemi.emi.Exceptions.ResourceNotFoundException;
 import com.conexemi.emi.Mapper.EntrepreneurshipMapper;
+import com.conexemi.emi.model.CategoryType;
 import com.conexemi.emi.model.Entrepreneurship;
 import com.conexemi.emi.repositories.CategoryRepository;
 import com.conexemi.emi.repositories.CityRepository;
@@ -30,6 +31,9 @@ public class EntrepreneurshipService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EntrepreneurshipMapper entrepreneurshipMapper;
 
 
     public EntrepreneurshipDTO createEntrepreneurship(EntrepreneurshipDTO entrepreneurshipDTO) {
@@ -83,7 +87,17 @@ public class EntrepreneurshipService {
 
 
     public void deleteEntrepreneurshipById(Integer idEntrepreneurship) {
+        if (!entrepreneurshipRepository.existsById(idEntrepreneurship)) {
+            throw new ResourceNotFoundException("Entrepreneurship with ID " + idEntrepreneurship + " not found");
+        }
         entrepreneurshipRepository.deleteById(idEntrepreneurship);
+    }
+
+    public List<EntrepreneurshipDTO> getEntrepreneurshipsByCategory(CategoryType nameCategory) {
+        List<Entrepreneurship> entrepreneurshipList = entrepreneurshipRepository.getEntrepreneurshipsByCategory(nameCategory);
+        return entrepreneurshipList.stream()
+                .map(entrepreneurship -> entrepreneurshipMapper.toDTO(entrepreneurship))
+                .collect(Collectors.toList());
     }
 
 

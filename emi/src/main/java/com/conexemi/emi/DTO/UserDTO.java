@@ -1,5 +1,6 @@
 package com.conexemi.emi.DTO;
 
+import com.conexemi.emi.model.CityType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -35,6 +36,8 @@ public class UserDTO {
 
     @NotNull(message = "City ID cannot be null")
     private Integer idCity;
+
+    private CityType nameCity;
 
     @NotNull(message = "Roles cannot be null")
     @NotEmpty(message = "You must provide at least one roles")

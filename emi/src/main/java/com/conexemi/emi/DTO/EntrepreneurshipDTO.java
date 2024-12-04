@@ -1,5 +1,7 @@
 package com.conexemi.emi.DTO;
 
+import com.conexemi.emi.model.CategoryType;
+import com.conexemi.emi.model.CityType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -30,11 +32,17 @@ public class EntrepreneurshipDTO {
     @NotNull(message = "City ID cannot be null")
     private Integer idCity;
 
+    private CityType nameCity;
+
     @NotNull(message = "User ID cannot be null")
     private Integer idUser;
+
+    private String user;
 
     @NotNull(message = "Categories cannot be null")
     @NotEmpty(message = "You must provide at least one category")
     private List<Integer> idCategories;
+
+    private List<CategoryType> nameCategories;
 
 }

@@ -2,6 +2,7 @@ package com.conexemi.emi.controller;
 
 import com.conexemi.emi.DTO.EntrepreneurshipDTO;
 import com.conexemi.emi.DTO.UpdateEntrepreneurshipDTO;
+import com.conexemi.emi.model.CategoryType;
 import com.conexemi.emi.services.EntrepreneurshipService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/entrepreneurship")
 @Validated
+@CrossOrigin(origins = "http://localhost:4200")
 public class EntrepreneurshipController {
 
     @Autowired
@@ -50,6 +52,12 @@ public class EntrepreneurshipController {
     public ResponseEntity<Void> deleteEntrepreneurshipById(@PathVariable Integer idEntrepreneurship) {
         entrepreneurshipService.deleteEntrepreneurshipById(idEntrepreneurship);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/category/{nameCategory}")
+    public ResponseEntity<List<EntrepreneurshipDTO>> getEntrepreneurshipsByCategory(@PathVariable CategoryType nameCategory) {
+        List<EntrepreneurshipDTO> entrepreneurshipsDTO = entrepreneurshipService.getEntrepreneurshipsByCategory(nameCategory);
+        return new ResponseEntity<>(entrepreneurshipsDTO, HttpStatus.OK);
     }
 
 
